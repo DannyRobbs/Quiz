@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#a0c0f0"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#e8e8e8"
+        android:orientation="horizontal"
+
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/timer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-black"
+            android:gravity="center"
+            android:text="time" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.5"
+            android:fontFamily="sans-serif-black"
+            android:gravity="center"
+            android:text="Scholarship Test for NEET 2022" />
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_play_circle_outline" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/amountCovered"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#bdbdbd"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="3% covered" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:paddingTop="30dp"
+        android:text="Session Paused" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="30dp"
+        android:elevation="20dp"
+        app:cardCornerRadius="18dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#e0e0e0"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="#e0e0e0"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_insert_drive_file" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:background="#e0e0e0"
+                    android:fontFamily="sans-serif-black"
+                    android:gravity="start"
+                    android:padding="10dp"
+                    android:text="Questions" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#bdbdbd" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#eaeaea"
+
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="#eaeaea"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_verified_user" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:background="#eaeaea"
+                    android:fontFamily="sans-serif-black"
+                    android:gravity="start"
+                    android:padding="10dp"
+                    android:text="Attempted" />
+
+                <TextView
+                    android:id="@+id/attemptedTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginRight="15dp"
+                    android:background="#eaeaea"
+                    android:fontFamily="sans-serif-black"
+                    android:gravity="end"
+                    android:padding="10dp"
+                    android:text="5" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#bdbdbd" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#eaeaea"
+
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="#eaeaea"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_skip_next" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:background="#eaeaea"
+                    android:fontFamily="sans-serif-black"
+                    android:gravity="start"
+                    android:padding="10dp"
+                    android:text="Skipped" />
+
+                <TextView
+                    android:id="@+id/skippedTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginRight="15dp"
+                    android:background="#eaeaea"
+                    android:fontFamily="sans-serif-black"
+                    android:gravity="end"
+                    android:padding="10dp"
+                    android:text="5" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#bdbdbd" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#eaeaea"
+
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="#eaeaea"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_error" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:background="#eaeaea"
+                    android:fontFamily="sans-serif-black"
+                    android:gravity="start"
+                    android:padding="10dp"
+                    android:text="Marked for Review" />
+
+                <TextView
+                    android:id="@+id/markedTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginRight="15dp"
+                    android:background="#eaeaea"
+                    android:fontFamily="sans-serif-black"
+                    android:gravity="end"
+                    android:padding="10dp"
+                    android:text="5" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/op1mainlay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/submit"
+            android:layout_gravity="center"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@android:color/holo_green_light"
+            android:elevation="20dp"
+            android:onClick="play"
+            app:cardCornerRadius="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:onClick="play"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:onClick="play"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_play_arrow" />
+
+                <TextView
+                    android:id="@+id/test"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="sans-serif-black"
+                    android:gravity="start"
+                    android:onClick="play"
+                    android:padding="10dp"
+                    android:text="Resume Test"
+                    android:textColor="#ffffff" />
+            </LinearLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:backgroundTint="#777777"
+            android:elevation="20dp"
+            app:cardCornerRadius="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="sans-serif-black"
+                    android:gravity="start"
+                    android:padding="10dp"
+                    android:text="Submit Test"
+                    android:textColor="#ffffff" />
+            </LinearLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </RelativeLayout>
+
+</LinearLayout>
