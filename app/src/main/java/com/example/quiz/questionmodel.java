@@ -1,8 +1,8 @@
 package com.example.quiz;
 
 public class questionmodel {
-   private String question,optionA,optionB,optionC,optionD,answer,answerSelected;
-    private int pointawarded,skipped;
+   private String question,optionA,optionB,optionC,optionD,answer,answerSelected = "null";
+    private int pointawarded,skipped=0;
 
     public questionmodel(String question, String optionA, String optionB, String optionC, String optionD, String answer) {
         this.question = question;

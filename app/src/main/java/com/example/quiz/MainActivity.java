@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     Inappropriate String concatenations will be removed and proper comments added as need be.*/
 
     private ArrayList<questionmodel> questionBank = new ArrayList<>();
-    private TextView timer, question, op1, op2, op3, op4, questionNumber, previous, next, progress, tv;
+    private TextView timer, question, op1, op2, op3, op4, questionNumber, previous, next, progress;
     private View op1main, op2main, op3main, op4main, op1num, op2num, op3num, op4num;
     private ProgressBar progressBar;
     private SharedPreferences sharedPreferences;
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         init();
         questionSetup();
-        tv.setMovementMethod(new ScrollingMovementMethod());
+        question.setMovementMethod(new ScrollingMovementMethod());
         sharedPreferences = this.getSharedPreferences("key", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putLong("time_left", mTimeLeftInMillis);
@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void start() {
         //  timerresume();
+
         selectedAnswer = "null";
         next.setText("Skip");
         resetBackground();
@@ -83,7 +84,9 @@ public class MainActivity extends AppCompatActivity {
             op3.setText(questionBank.get(questionstart).getOptionC());
             op4.setText(questionBank.get(questionstart).getOptionD());
             questionNumber.setText(questionstart + 1 + " of " + questionBank.size());
-
+            if(!questionBank.get(questionstart).getAnswerSelected().equalsIgnoreCase("null")){
+                checkAndHighlightAnswer();
+            }
         } else {
             mCountDownTimer.cancel();
             Intent i = new Intent(MainActivity.this, endQuiz.class);
@@ -95,9 +98,26 @@ public class MainActivity extends AppCompatActivity {
             i.putExtra("time", String.format(Locale.getDefault(), "%02d:%02d",
                     TimeUnit.MILLISECONDS.toMinutes(mTimeLeftInMillis) % 60,
                     TimeUnit.MILLISECONDS.toSeconds(mTimeLeftInMillis) % 60));
+            i.putExtra("score",score + " Questions correctly answered out of "+questionBank.size());
             startActivity(i);
         }
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void checkAndHighlightAnswer() {
+
+        if(op1.getText().toString().equalsIgnoreCase(questionBank.get(questionstart).getAnswerSelected())){
+            highlightSelected(op1,op1main,op1num);
+        }else if(op2.getText().toString().equalsIgnoreCase(questionBank.get(questionstart).getAnswerSelected())){
+            highlightSelected(op3,op3main,op3num);
+        }else if(op3.getText().toString().equalsIgnoreCase(questionBank.get(questionstart).getAnswerSelected())){
+            highlightSelected(op3,op3main,op3num);
+        }else if(op4.getText().toString().equalsIgnoreCase(questionBank.get(questionstart).getAnswerSelected())){
+            highlightSelected(op4,op4main,op4num);
+        }
+
+    }
+
 
     private void init() {
         timer = findViewById(R.id.timerTv);
@@ -106,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
         op2 = findViewById(R.id.op2);
         op3 = findViewById(R.id.op3);
         op4 = findViewById(R.id.op4);
-        tv = findViewById(R.id.question);
         questionNumber = findViewById(R.id.questionnumber);
         progressBar = findViewById(R.id.progressbar);
         previous = findViewById(R.id.prev);
@@ -129,12 +148,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 resetBackground();
-                op1.setTextColor(Color.parseColor("#ffffff"));
-                op1main.getBackground().setTint(MainActivity.this.getResources().getColor(R.color.blue));
-                op1num.setBackgroundColor(Color.parseColor("#ffffff"));
-                questionBank.get(questionstart).setAnswerSelected(op1.getText().toString());
-                selectedAnswer = op1.getText().toString();
-                next.setText("Next");
+                highlightSelected(op1,op1main,op1num);
             }
         });
         op2.setOnClickListener(new View.OnClickListener() {
@@ -142,12 +156,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 resetBackground();
-                op2.setTextColor(Color.parseColor("#ffffff"));
-                op2main.getBackground().setTint(MainActivity.this.getResources().getColor(R.color.blue));
-                op2num.setBackgroundColor(Color.parseColor("#ffffff"));
-                questionBank.get(questionstart).setAnswerSelected(op2.getText().toString());
-                selectedAnswer = op2.getText().toString();
-                next.setText("Next");
+                highlightSelected(op2,op2main,op2num);
             }
         });
         op3.setOnClickListener(new View.OnClickListener() {
@@ -155,12 +164,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 resetBackground();
-                op3.setTextColor(Color.parseColor("#ffffff"));
-                op3main.getBackground().setTint(MainActivity.this.getResources().getColor(R.color.blue));
-                op3num.setBackgroundColor(Color.parseColor("#ffffff"));
-                questionBank.get(questionstart).setAnswerSelected(op3.getText().toString());
-                selectedAnswer = op3.getText().toString();
-                next.setText("Next");
+                highlightSelected(op3,op3main,op3num);
             }
         });
         op4.setOnClickListener(new View.OnClickListener() {
@@ -168,12 +172,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 resetBackground();
-                op4.setTextColor(Color.parseColor("#ffffff"));
-                op4main.getBackground().setTint(MainActivity.this.getResources().getColor(R.color.blue));
-                op4num.setBackgroundColor(Color.parseColor("#ffffff"));
-                questionBank.get(questionstart).setAnswerSelected(op4.getText().toString());
-                selectedAnswer = op4.getText().toString();
-                next.setText("Next");
+                highlightSelected(op4,op4main,op4num);
             }
         });
 
@@ -183,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (questionstart < questionBank.size()) {
                     if (next.getText().toString().equalsIgnoreCase("next")) {
-                        if (selectedAnswer.equals(questionBank.get(questionstart).getAnswerSelected())) {
+                        if (selectedAnswer.equals(questionBank.get(questionstart).getAnswer())) {
                             score += 1;
                             questionBank.get(questionstart).setPointawarded(1);
 
@@ -210,6 +209,8 @@ public class MainActivity extends AppCompatActivity {
                     i.putExtra("time", String.format(Locale.getDefault(), "%02d:%02d",
                             TimeUnit.MILLISECONDS.toMinutes(mTimeLeftInMillis) % 60,
                             TimeUnit.MILLISECONDS.toSeconds(mTimeLeftInMillis) % 60));
+                    i.putExtra("score",score + " Questions correctly answered out of "+questionBank.size());
+
                     startActivity(i);
 
                 }
@@ -225,7 +226,9 @@ public class MainActivity extends AppCompatActivity {
                     questionstart -= 1;
                     skipped -= questionBank.get(questionstart).getSkipped();
                     score -= questionBank.get(questionstart).getPointawarded();
-                    attempted -= questionBank.get(questionstart).getPointawarded();
+                    if(questionBank.get(questionstart).getSkipped() ==0){
+                        attempted -=1;
+                    }
                     questionBank.get(questionstart).setSkipped(0);
                     questionBank.get(questionstart).setPointawarded(0);
                     start();
@@ -269,6 +272,8 @@ public class MainActivity extends AppCompatActivity {
         i.putExtra("time", String.format(Locale.getDefault(), "%02d:%02d",
                 TimeUnit.MILLISECONDS.toMinutes(mTimeLeftInMillis) % 60,
                 TimeUnit.MILLISECONDS.toSeconds(mTimeLeftInMillis) % 60));
+        i.putExtra("score","Test still Ongoing.");
+
         startActivity(i);
     }
 
@@ -330,5 +335,14 @@ public class MainActivity extends AppCompatActivity {
 
         questionBank.add(new questionmodel("The valence electrons of representative elements are?", "in s orbital only.", "located in the outermost occupied major energy level.", "located closest to the nucleus.", "located in the d orbital.", "located in the outermost occupied major energy level."));
 
+    }
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void highlightSelected(TextView q, View v, View u){
+        q.setTextColor(Color.parseColor("#ffffff"));
+        v.getBackground().setTint(MainActivity.this.getResources().getColor(R.color.blue));
+        u.setBackgroundColor(Color.parseColor("#ffffff"));
+        questionBank.get(questionstart).setAnswerSelected(q.getText().toString());
+        selectedAnswer = q.getText().toString();
+        next.setText("Next");
     }
 }

@@ -10,8 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class endQuiz extends AppCompatActivity {
-    private String total, attempts, skip, mark, timer, type;
-    private TextView attempted, skipped, marked, covered, timertv, resume;
+    private String total, attempts, skip, mark, timer, type,score;
+    private TextView attempted, skipped, marked, covered, timertv, resume,scoreTv;
     private Intent i;
 
     @Override
@@ -31,6 +31,7 @@ public class endQuiz extends AppCompatActivity {
         mark = i.getStringExtra("marked");
         type = i.getStringExtra("type");
         timer = i.getStringExtra("time");
+        score = i.getStringExtra("score");
     }
 
     private void init() {
@@ -40,6 +41,7 @@ public class endQuiz extends AppCompatActivity {
         covered = findViewById(R.id.amountCovered);
         timertv = findViewById(R.id.timer);
         resume = findViewById(R.id.test);
+        scoreTv = findViewById(R.id.scoretv);
         i = getIntent();
     }
 
@@ -52,6 +54,7 @@ public class endQuiz extends AppCompatActivity {
         timertv.setText(timer);
         covered.setText(num * 100 + "% Covered");
         resume.setText(type);
+        scoreTv.setText(score);
     }
 
     @Override
